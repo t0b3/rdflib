@@ -5,7 +5,7 @@ try: ``csv2rdf --help``
 
 """
 
-from __future__ import print_function
+
 
 import sys
 import re
@@ -352,7 +352,7 @@ class CSV2RDF(object):
             next(csvreader)
 
         # read header line
-        header_labels = list(csvreader.next())
+        header_labels = list(next(csvreader))
         headers = dict(
             enumerate([self.PROPBASE[toProperty(x)] for x in header_labels]))
         # override header properties if some are given

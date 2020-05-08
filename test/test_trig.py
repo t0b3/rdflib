@@ -175,6 +175,6 @@ class TestTrig(unittest.TestCase):
         cg.parse(data=data, format='trig')
         data = cg.serialize(format='trig')
 
-        self.assert_(b('ns2: <http://ex.org/docs/') in data, data)
-        self.assert_(b('<ns2:document1>') not in data, data)
-        self.assert_(b('ns2:document1') in data, data)
+        self.assertTrue(b('ns2: <http://ex.org/docs/') in data, data)
+        self.assertTrue(b('<ns2:document1>') not in data, data)
+        self.assertTrue(b('ns2:document1') in data, data)

@@ -6,7 +6,7 @@ http://www.w3.org/TR/sparql11-query/#sparqlQuery
 
 """
 
-from __future__ import print_function
+
 
 import functools
 import operator

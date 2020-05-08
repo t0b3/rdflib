@@ -17,7 +17,7 @@ prefix = textwrap.dedent('''\
     @prefix nao: <http://www.semanticdesktop.org/ontologies/2007/08/15/nao#> .
     ''')
 
-meta = textwrap.dedent(u"""\
+meta = textwrap.dedent("""\
 a nfo:PaginatedTextDocument ;
     nie:title "SV Meldung" ;
     nco:creator [ a nco:Contact ;
@@ -32,7 +32,7 @@ a nfo:PaginatedTextDocument ;
 ?tag1 a nao:Tag ; nao:prefLabel "()" .
 """)
 
-test_string1 = u"""\
+test_string1 = """\
 Betriebsnummer der Einzugsstelle:\nKnappschaft\n980 0000 6\nWICHTIGES DOKUMENT - SORGFÄLTIG AUFBEWAHREN!\n """
 
 
@@ -41,7 +41,7 @@ def test1():
     graph = ConjunctiveGraph()
     graph.parse(StringInputSource(prefix + '<http://example.org/>' + meta1), format='n3')
 
-test_string2 = u"""\
+test_string2 = """\
 Betriebsnummer der Einzugsstelle:
 Knappschaft
 980 0000 6

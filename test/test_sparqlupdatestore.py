@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from __future__ import unicode_literals
+
 
 from nose import SkipTest
 
@@ -25,13 +25,13 @@ DB = '/db/'
 
 # THIS WILL DELETE ALL DATA IN THE /db dataset
 
-michel = URIRef(u'urn:michel')
-tarek = URIRef(u'urn:tarek')
-bob = URIRef(u'urn:bob')
-likes = URIRef(u'urn:likes')
-hates = URIRef(u'urn:hates')
-pizza = URIRef(u'urn:pizza')
-cheese = URIRef(u'urn:cheese')
+michel = URIRef('urn:michel')
+tarek = URIRef('urn:tarek')
+bob = URIRef('urn:bob')
+likes = URIRef('urn:likes')
+hates = URIRef('urn:hates')
+pizza = URIRef('urn:pizza')
+cheese = URIRef('urn:cheese')
 
 graphuri = URIRef('urn:graph')
 othergraphuri = URIRef('urn:othergraph')
@@ -255,7 +255,7 @@ class TestSparql11(unittest.TestCase):
         r4strings.append("'''10: ad adsfj \n { \n sadfj'''")
 
         r4 = "\n".join([
-            u'INSERT DATA { <urn:michel> <urn:says> %s } ;' % s
+            'INSERT DATA { <urn:michel> <urn:says> %s } ;' % s
             for s in r4strings
         ])
         g.update(r4)
@@ -276,10 +276,10 @@ class TestSparql11(unittest.TestCase):
         values = set()
         for v in g.objects(michel, hates):
             values.add(text_type(v))
-        self.assertEqual(values, set([u"urn:foo'bar?baz;a=1&b=2#fragment", u"'}"]))
+        self.assertEqual(values, set(["urn:foo'bar?baz;a=1&b=2#fragment", "'}"]))
 
         # Comments
-        r6 = u"""
+        r6 = """
             INSERT DATA {
                 <urn:bob> <urn:hates> <urn:bob> . # No closing brace: }
                 <urn:bob> <urn:hates> <urn:michel>.

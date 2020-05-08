@@ -73,9 +73,9 @@ Only in second::
     _:cb558f30e21ddfc05ca53108348338ade8
         <http://example.org/ns#label> "B" .
 """
-from __future__ import absolute_import
-from __future__ import division
-from __future__ import print_function
+
+
+
 
 
 # TODO:
@@ -217,7 +217,7 @@ class Color:
         value = 0
         for triple in color:
             value += self.hashfunc(' '.join([stringify(x) for x in triple]))
-        val = u"%x" % value
+        val = "%x" % value
         self._hash_cache[color] = val
         return val
 

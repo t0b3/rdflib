@@ -89,7 +89,7 @@ class TestRepr(unittest.TestCase):
     def testSubclassNameAppearsInRepr(self):
         class MyLiteral(Literal):
             pass
-        x = MyLiteral(u"foo")
+        x = MyLiteral("foo")
         self.assertEqual(repr(x), uformat("MyLiteral(u'foo')"))
 
 

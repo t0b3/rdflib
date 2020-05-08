@@ -4,7 +4,7 @@ from six import BytesIO, StringIO
 from rdflib import URIRef, Literal
 from rdflib.graph import Graph
 
-rdf = u"""@prefix skos:
+rdf = """@prefix skos:
 <http://www.w3.org/2004/02/skos/core#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix : <http://www.test.org/#> .
@@ -31,7 +31,7 @@ def test_a():
     g.parse(data=rdf, format='n3')
     v = g.value(subject=URIRef("http://www.test.org/#CI"),
                 predicate=URIRef("http://www.w3.org/2004/02/skos/core#prefLabel"))
-    assert v == Literal(u"C\u00f4te d'Ivoire", lang='fr')
+    assert v == Literal("C\u00f4te d'Ivoire", lang='fr')
 
 
 def test_b():
@@ -40,7 +40,7 @@ def test_b():
     g.parse(data=rdf_utf8, format='n3')
     v = g.value(subject=URIRef("http://www.test.org/#CI"),
                 predicate=URIRef("http://www.w3.org/2004/02/skos/core#prefLabel"))
-    assert v == Literal(u"C\u00f4te d'Ivoire", lang='fr')
+    assert v == Literal("C\u00f4te d'Ivoire", lang='fr')
 
 
 def test_c():
@@ -50,7 +50,7 @@ def test_c():
     g.parse(source=rdf_reader, format='n3')
     v = g.value(subject=URIRef("http://www.test.org/#CI"),
                 predicate=URIRef("http://www.w3.org/2004/02/skos/core#prefLabel"))
-    assert v == Literal(u"C\u00f4te d'Ivoire", lang='fr')
+    assert v == Literal("C\u00f4te d'Ivoire", lang='fr')
 
 
 def test_d():
@@ -59,7 +59,7 @@ def test_d():
     g.parse(source=StringIO(rdf), format='n3')
     v = g.value(subject=URIRef("http://www.test.org/#CI"),
                 predicate=URIRef("http://www.w3.org/2004/02/skos/core#prefLabel"))
-    assert v == Literal(u"C\u00f4te d'Ivoire", lang='fr')
+    assert v == Literal("C\u00f4te d'Ivoire", lang='fr')
 
 
 def test_e():
@@ -68,11 +68,11 @@ def test_e():
     g.parse(source=BytesIO(rdf_utf8), format='n3')
     v = g.value(subject=URIRef("http://www.test.org/#CI"),
                 predicate=URIRef("http://www.w3.org/2004/02/skos/core#prefLabel"))
-    assert v == Literal(u"C\u00f4te d'Ivoire", lang='fr')
+    assert v == Literal("C\u00f4te d'Ivoire", lang='fr')
 
 
 # this is unicode
-rdfxml = u"""<?xml version="1.0" encoding="UTF-8"?>
+rdfxml = """<?xml version="1.0" encoding="UTF-8"?>
 <rdf:RDF
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:skos="http://www.w3.org/2004/02/skos/core#"
@@ -97,7 +97,7 @@ def test_xml_a():
     g.parse(data=rdfxml, format='xml')
     v = g.value(subject=URIRef("http://www.test.org/#CI"),
                 predicate=URIRef("http://www.w3.org/2004/02/skos/core#prefLabel"))
-    assert v == Literal(u"C\u00f4te d'Ivoire", lang='fr')
+    assert v == Literal("C\u00f4te d'Ivoire", lang='fr')
 
 
 def test_xml_b():
@@ -106,7 +106,7 @@ def test_xml_b():
     g.parse(data=rdfxml_utf8, format='xml')
     v = g.value(subject=URIRef("http://www.test.org/#CI"),
                 predicate=URIRef("http://www.w3.org/2004/02/skos/core#prefLabel"))
-    assert v == Literal(u"C\u00f4te d'Ivoire", lang='fr')
+    assert v == Literal("C\u00f4te d'Ivoire", lang='fr')
 
 # The following two cases are currently not supported by Graph.parse
 # def test_xml_c():
@@ -130,4 +130,4 @@ def test_xml_e():
     g.parse(source=BytesIO(rdfxml_utf8), format='xml')
     v = g.value(subject=URIRef("http://www.test.org/#CI"),
                 predicate=URIRef("http://www.w3.org/2004/02/skos/core#prefLabel"))
-    assert v == Literal(u"C\u00f4te d'Ivoire", lang='fr')
+    assert v == Literal("C\u00f4te d'Ivoire", lang='fr')

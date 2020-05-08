@@ -1,4 +1,4 @@
-from __future__ import division
+
 from rdflib import URIRef
 from rdflib.paths import Path
 

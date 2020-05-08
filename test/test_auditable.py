@@ -1,5 +1,5 @@
 # -*- coding=utf8 -*-
-from __future__ import unicode_literals
+
 import unittest
 
 from rdflib import Graph, Namespace

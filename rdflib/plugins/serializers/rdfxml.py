@@ -1,4 +1,4 @@
-from __future__ import absolute_import
+
 
 from rdflib.plugins.serializers.xmlwriter import XMLWriter
 
@@ -289,7 +289,7 @@ class PrettyXMLSerializer(Serializer):
             if (object.datatype == RDF.XMLLiteral
                     and isinstance(object.value, xml.dom.minidom.Document)):
                 writer.attribute(RDF.parseType, "Literal")
-                writer.text(u"")
+                writer.text("")
                 writer.stream.write(object)
             else:
                 if object.datatype:

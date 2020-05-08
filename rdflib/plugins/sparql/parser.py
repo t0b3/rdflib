@@ -4,7 +4,7 @@ SPARQL 1.1 Parser
 based on pyparsing
 """
 
-from __future__ import absolute_import
+
 
 import sys
 import re
@@ -163,20 +163,20 @@ if sys.maxunicode == 0xffff:
     #
     # in py3.3 this is fixed
 
-    PN_CHARS_BASE_re = u'A-Za-z\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u02FF\u0370-\u037D\u037F-\u1FFF\u200C-\u200D\u2070-\u218F\u2C00-\u2FEF\u3001-\uD7FF\uF900-\uFDCF\uFDF0-\uFFFD'
+    PN_CHARS_BASE_re = 'A-Za-z\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u02FF\u0370-\u037D\u037F-\u1FFF\u200C-\u200D\u2070-\u218F\u2C00-\u2FEF\u3001-\uD7FF\uF900-\uFDCF\uFDF0-\uFFFD'
 else:
     # wide python build
-    PN_CHARS_BASE_re = u'A-Za-z\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u02FF\u0370-\u037D\u037F-\u1FFF\u200C-\u200D\u2070-\u218F\u2C00-\u2FEF\u3001-\uD7FF\uF900-\uFDCF\uFDF0-\uFFFD\U00010000-\U000EFFFF'
+    PN_CHARS_BASE_re = 'A-Za-z\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u02FF\u0370-\u037D\u037F-\u1FFF\u200C-\u200D\u2070-\u218F\u2C00-\u2FEF\u3001-\uD7FF\uF900-\uFDCF\uFDF0-\uFFFD\U00010000-\U000EFFFF'
 
 # [165] PN_CHARS_U ::= PN_CHARS_BASE | '_'
 PN_CHARS_U_re = '_' + PN_CHARS_BASE_re
 
 # [167] PN_CHARS ::= PN_CHARS_U | '-' | [0-9] | #x00B7 | [#x0300-#x036F] | [#x203F-#x2040]
-PN_CHARS_re = u'\\-0-9\u00B7\u0300-\u036F\u203F-\u2040' + PN_CHARS_U_re
+PN_CHARS_re = '\\-0-9\u00B7\u0300-\u036F\u203F-\u2040' + PN_CHARS_U_re
 # PN_CHARS = Regex(u'[%s]'%PN_CHARS_re, flags=re.U)
 
 # [168] PN_PREFIX ::= PN_CHARS_BASE ((PN_CHARS|'.')* PN_CHARS)?
-PN_PREFIX = Regex(u'[%s](?:[%s\\.]*[%s])?' % (PN_CHARS_BASE_re,
+PN_PREFIX = Regex('[%s](?:[%s\\.]*[%s])?' % (PN_CHARS_BASE_re,
                                               PN_CHARS_re, PN_CHARS_re), flags=re.U)
 
 # [140] PNAME_NS ::= PN_PREFIX? ':'
@@ -204,7 +204,7 @@ PLX_re = '(%s|%s)' % (PN_LOCAL_ESC_re, PERCENT_re)
 
 # [169] PN_LOCAL ::= (PN_CHARS_U | ':' | [0-9] | PLX ) ((PN_CHARS | '.' | ':' | PLX)* (PN_CHARS | ':' | PLX) )?
 
-PN_LOCAL = Regex(u"""([%(PN_CHARS_U)s:0-9]|%(PLX)s)
+PN_LOCAL = Regex("""([%(PN_CHARS_U)s:0-9]|%(PLX)s)
                      (([%(PN_CHARS)s\\.:]|%(PLX)s)*
                       ([%(PN_CHARS)s:]|%(PLX)s) )?""" % dict(PN_CHARS_U=PN_CHARS_U_re,
                                                              PN_CHARS=PN_CHARS_re,
@@ -212,7 +212,7 @@ PN_LOCAL = Regex(u"""([%(PN_CHARS_U)s:0-9]|%(PLX)s)
 
 
 def _hexExpand(match):
-    return unichr(int(match.group(0)[1:], 16))
+    return chr(int(match.group(0)[1:], 16))
 
 
 PN_LOCAL.setParseAction(lambda x: re.sub("(%s)" % PERCENT_re, _hexExpand, x[0]))
@@ -222,13 +222,13 @@ PN_LOCAL.setParseAction(lambda x: re.sub("(%s)" % PERCENT_re, _hexExpand, x[0]))
 PNAME_LN = PNAME_NS + Param('localname', PN_LOCAL.leaveWhitespace())
 
 # [142] BLANK_NODE_LABEL ::= '_:' ( PN_CHARS_U | [0-9] ) ((PN_CHARS|'.')* PN_CHARS)?
-BLANK_NODE_LABEL = Regex(u'_:[0-9%s](?:[\\.%s]*[%s])?' % (
+BLANK_NODE_LABEL = Regex('_:[0-9%s](?:[\\.%s]*[%s])?' % (
     PN_CHARS_U_re, PN_CHARS_re, PN_CHARS_re), flags=re.U)
 BLANK_NODE_LABEL.setParseAction(lambda x: rdflib.BNode(x[0][2:]))
 
 
 # [166] VARNAME ::= ( PN_CHARS_U | [0-9] ) ( PN_CHARS_U | [0-9] | #x00B7 | [#x0300-#x036F] | [#x203F-#x2040] )*
-VARNAME = Regex(u'[%s0-9][%s0-9\u00B7\u0300-\u036F\u203F-\u2040]*' % (
+VARNAME = Regex('[%s0-9][%s0-9\u00B7\u0300-\u036F\u203F-\u2040]*' % (
     PN_CHARS_U_re, PN_CHARS_U_re), flags=re.U)
 
 # [143] VAR1 ::= '?' VARNAME
@@ -293,14 +293,14 @@ DOUBLE_NEGATIVE.setParseAction(lambda x: neg(x[0]))
 # [158] STRING_LITERAL_LONG1 ::= "'''" ( ( "'" | "''" )? ( [^'\] | ECHAR ) )* "'''"
 # STRING_LITERAL_LONG1 = Literal("'''") + ( Optional( Literal("'") | "''"
 # ) + ZeroOrMore( ~ Literal("'\\") | ECHAR ) ) + "'''"
-STRING_LITERAL_LONG1 = Regex(u"'''((?:'|'')?(?:[^'\\\\]|\\\\['ntbrf\\\\]))*'''")
+STRING_LITERAL_LONG1 = Regex("'''((?:'|'')?(?:[^'\\\\]|\\\\['ntbrf\\\\]))*'''")
 STRING_LITERAL_LONG1.setParseAction(
     lambda x: rdflib.Literal(decodeUnicodeEscape(x[0][3:-3])))
 
 # [159] STRING_LITERAL_LONG2 ::= '"""' ( ( '"' | '""' )? ( [^"\] | ECHAR ) )* '"""'
 # STRING_LITERAL_LONG2 = Literal('"""') + ( Optional( Literal('"') | '""'
 # ) + ZeroOrMore( ~ Literal('"\\') | ECHAR ) ) +  '"""'
-STRING_LITERAL_LONG2 = Regex(u'"""(?:(?:"|"")?(?:[^"\\\\]|\\\\["ntbrf\\\\]))*"""')
+STRING_LITERAL_LONG2 = Regex('"""(?:(?:"|"")?(?:[^"\\\\]|\\\\["ntbrf\\\\]))*"""')
 STRING_LITERAL_LONG2.setParseAction(
     lambda x: rdflib.Literal(decodeUnicodeEscape(x[0][3:-3])))
 
@@ -309,7 +309,7 @@ STRING_LITERAL_LONG2.setParseAction(
 # Regex(u'[^\u0027\u005C\u000A\u000D]',flags=re.U) | ECHAR ) + "'"
 
 STRING_LITERAL1 = Regex(
-    u"'(?:[^'\\n\\r\\\\]|\\\\['ntbrf\\\\])*'(?!')", flags=re.U)
+    "'(?:[^'\\n\\r\\\\]|\\\\['ntbrf\\\\])*'(?!')", flags=re.U)
 STRING_LITERAL1.setParseAction(
     lambda x: rdflib.Literal(decodeUnicodeEscape(x[0][1:-1])))
 
@@ -318,7 +318,7 @@ STRING_LITERAL1.setParseAction(
 # Regex(u'[^\u0022\u005C\u000A\u000D]',flags=re.U) | ECHAR ) + '"'
 
 STRING_LITERAL2 = Regex(
-    u'"(?:[^"\\n\\r\\\\]|\\\\["ntbrf\\\\])*"(?!")', flags=re.U)
+    '"(?:[^"\\n\\r\\\\]|\\\\["ntbrf\\\\])*"(?!")', flags=re.U)
 STRING_LITERAL2.setParseAction(
     lambda x: rdflib.Literal(decodeUnicodeEscape(x[0][1:-1])))
 
@@ -1043,7 +1043,7 @@ def expandUnicodeEscapes(q):
 
     def expand(m):
         try:
-            return unichr(int(m.group(1), 16))
+            return chr(int(m.group(1), 16))
         except:
             raise Exception("Invalid unicode code point: " + m)
 

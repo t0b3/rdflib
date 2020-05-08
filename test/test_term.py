@@ -180,7 +180,7 @@ class TestLiteral(unittest.TestCase):
 
             (43, Literal(1, datatype=XSD.integer), "+1.1", Literal("1+1.1", datatype=XSD.string)),
             (44, Literal(1, datatype=XSD.integer), Literal("+1.1", datatype=XSD.string), Literal("1+1.1", datatype=XSD.string)),
-            (45, Literal(Decimal(1.0), datatype=XSD.integer), Literal(u"1", datatype=XSD.string), Literal("11", datatype=XSD.string)),
+            (45, Literal(Decimal(1.0), datatype=XSD.integer), Literal("1", datatype=XSD.string), Literal("11", datatype=XSD.string)),
             (46, Literal(1.1, datatype=XSD.integer), Literal("1", datatype=XSD.string), Literal("1.11", datatype=XSD.string)),
 
             (47, Literal(1, datatype=XSD.integer), None, Literal(1, datatype=XSD.integer)),

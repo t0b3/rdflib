@@ -98,12 +98,12 @@ class TriXHandler(handler.ContentHandler):
                 self.datatype = None
 
                 try:
-                    self.lang = attrs.getValue((text_type(XMLNS), u"lang"))
+                    self.lang = attrs.getValue((text_type(XMLNS), "lang"))
                 except:
                     # language not required - ignore
                     pass
                 try:
-                    self.datatype = attrs.getValueByQName(u"datatype")
+                    self.datatype = attrs.getValueByQName("datatype")
                 except KeyError:
                     self.error("No required attribute 'datatype'")
             else:
@@ -115,7 +115,7 @@ class TriXHandler(handler.ContentHandler):
                 self.lang = None
                 self.datatype = None
                 try:
-                    self.lang = attrs.getValue((text_type(XMLNS), u"lang"))
+                    self.lang = attrs.getValue((text_type(XMLNS), "lang"))
                 except:
                     # language not required - ignore
                     pass

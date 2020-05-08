@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-u"""
+"""
 notation3.py - Standalone Notation3 Parser
 Derived from CWM, the Closed World Machine
 
@@ -27,9 +27,9 @@ Modified to work with rdflib by Gunnar Aastrand Grimnes
 Copyright 2010, Gunnar A. Grimnes
 
 """
-from __future__ import absolute_import
-from __future__ import division
-from __future__ import print_function
+
+
+
 
 # Python standard libraries
 import types
@@ -314,14 +314,14 @@ escapeChars = "(_~.-!$&'()*+,;=/?#@%)" # valid for \ escapes in localnames
 
 def unicodeExpand(m):
     try:
-        return unichr(int(m.group(1), 16))
+        return chr(int(m.group(1), 16))
     except:
         raise Exception("Invalid unicode code point: " + m.group(1))
 
 if narrow_build:
     def unicodeExpand(m):
         try:
-            return unichr(int(m.group(1), 16))
+            return chr(int(m.group(1), 16))
         except ValueError:
             warnings.warn(
                 'Encountered a unicode char > 0xFFFF in a narrow python build. '
@@ -1512,7 +1512,7 @@ class SinkParser:
         delim2, delim3, delim4, delim5 = delim1 * 2, delim1 * 3, delim1 * 4, delim1 * 5
 
         j = i
-        ustr = u""    # Empty unicode string
+        ustr = ""    # Empty unicode string
         startline = self.lines  # Remember where for error messages
         while j < len(argstr):
             if argstr[j] == delim1:

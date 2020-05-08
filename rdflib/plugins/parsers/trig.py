@@ -1,4 +1,4 @@
-from __future__ import absolute_import
+
 
 from rdflib import ConjunctiveGraph
 from rdflib.parser import Parser
