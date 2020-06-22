@@ -22,7 +22,7 @@ LIMIT = "LIMIT"
 OFFSET = "OFFSET"
 ORDERBY = "ORDER BY"
 
-BNODE_IDENT_PATTERN = re.compile("(?P<label>_\:[^\s]+)")
+BNODE_IDENT_PATTERN = re.compile(r"(?P<label>_\:[^\s]+)")
 
 
 def _node_to_sparql(node):
@@ -431,7 +431,7 @@ class SPARQLUpdateStore(SPARQLStore):
     STRING_LITERAL_LONG2 = '"""(("|"")?([^"\\\\]|\\\\.))*"""'
     String = '(%s)|(%s)|(%s)|(%s)' % (STRING_LITERAL1, STRING_LITERAL2,
                                        STRING_LITERAL_LONG1, STRING_LITERAL_LONG2)
-    IRIREF = '<([^<>"{}|^`\\]\\\\\[\\x00-\\x20])*>'
+    IRIREF = '<([^<>"{}|^`\\]\\\\[\\x00-\\x20])*>'
     COMMENT = '#[^\\x0D\\x0A]*([\\x0D\\x0A]|\\Z)'
 
     # Simplified grammar to find { at beginning and } at end of blocks
